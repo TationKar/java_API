@@ -7,7 +7,7 @@ public class Notebook {
 
     @Override
     public String toString() {
-        return "model: " + model + ", ram_gb: " + ram_gb + ", hdd_cap_gb: " + hdd_cap_gb + ", os: " + os + ", color: " + color;
+        return model + ", RAM: " + ram_gb + ", HDD: " + hdd_cap_gb + ", " + os + ", " + color;
     }
 
 }

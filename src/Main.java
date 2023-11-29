@@ -68,54 +68,68 @@ public class Main {
         Notebook srchNtbk = new Notebook();
         Scanner sc = new Scanner(System.in);
         int label = 0;
+        System.out.println("Поиск по критериям '1' - модель ноутбука, '2' - объем ОЗУ в ГБ, '3' - объем HDD в ГБ, '4' - ОС, '5' - цвет, '6' - закончить ввод\n");
         do {
-            System.out.println("Введите номер критерия \n1 - модель ноутбука \n2 - объем ОЗУ в ГБ\n3 - объем HDD в ГБ\n4 - ОС\n5 - цвет\n6 - закончить\n");
+            //System.out.println("Введите номер критерия \n1 - модель ноутбука \n2 - объем ОЗУ в ГБ\n3 - объем HDD в ГБ\n4 - ОС\n5 - цвет\n6 - закончить\n");
+            System.out.print("Введите цифру от 1 до 6: ");
             label = sc.nextInt();
 
             switch (label){
                 case 1:
-                        System.out.print("Введите модель:");
-                        srchNtbk.model = sc.nextLine();
+                        System.out.print("Введите модель: ");
+                        srchNtbk.model = sc.next();
                         break;
-                case 2: System.out.print("Введите количество памяти в GB:");
+                case 2: System.out.print("Введите количество памяти в GB: ");
                         srchNtbk.ram_gb = sc.nextInt();
                         break;
-                case 3: System.out.print("Введите объем HDD в GB:");
+                case 3: System.out.print("Введите объем HDD в GB: ");
                         srchNtbk.hdd_cap_gb = sc.nextInt();
                         break;
-                case 4: System.out.print("Введите название ОС:");
-                        srchNtbk.os = sc.nextLine();
+                case 4: System.out.print("Введите название ОС: ");
+                        srchNtbk.os = sc.next();
                         break;
-                case 5: System.out.print("Введите цвет ноутбука:");
-                        srchNtbk.color = sc.nextLine();
+                case 5: System.out.print("Введите цвет ноутбука: ");
+                        srchNtbk.color = sc.next();
                         break;
+                default: break;
             }
-            System.out.println("");
+
 
         } while (label < 6);
 
-        System.out.println(srchNtbk.toString());
-        Boolean req = false;
+        //System.out.println(srchNtbk.toString());
+        System.out.println("");
+        Boolean mdl = true;
+        Boolean rm = true;
+        Boolean hd = true;
+        Boolean win = true;
+        Boolean clr = true;
+        Boolean found = false;
         for (Notebook nb:stock){
             if (srchNtbk.model != null) {
-                if (srchNtbk.model.equals(nb.model)) req = true;
+                if (srchNtbk.model.equals(nb.model)) mdl = true; else mdl = false;
             }
             if (srchNtbk.ram_gb != 0) {
-                if (srchNtbk.ram_gb <= nb.ram_gb) req = true;
+                if (srchNtbk.ram_gb <= nb.ram_gb) rm = true; else rm = false;
             }
             if (srchNtbk.hdd_cap_gb != 0) {
-                if (srchNtbk.hdd_cap_gb <= nb.hdd_cap_gb) req = true;
+                if (srchNtbk.hdd_cap_gb <= nb.hdd_cap_gb) hd = true; else hd = false;
             }
             if (srchNtbk.os != null) {
-                if (srchNtbk.os.equals(nb.os)) req = true; else req = false;
+                if (srchNtbk.os.equals(nb.os)) win = true; else win = false;
             }
-            if (srchNtbk.os != null) {
-                if (srchNtbk.color.equals(nb.color)) req = true; else req = false;
+            if (srchNtbk.color != null) {
+                if (srchNtbk.color.equals(nb.color)) clr = true; else clr = false;
+            }
+            //System.out.println("mdl = " + mdl + " rm = " + rm + " hd = " + hd + " win = " + win + " clr = " + clr);
+            if (mdl & rm & hd & win & clr) {
+                System.out.println("Подходящая модель: " + nb.toString());
+                found = true;
             }
 
-            if (req) {
-                System.out.println(nb.toString());
-            }
+        }
+        if (!found) {
+            System.out.println("Подходящих моделей нет");
         }
     }
 }
